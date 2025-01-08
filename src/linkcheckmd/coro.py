@@ -24,8 +24,8 @@ TIMEOUT = 10
 async def check_urls(
     path: Path,
     regex: str,
-    ext: str,
-    hdr: dict[str, str] = None,
+    ext: str = ".md",
+    hdr: dict[str, str] | None = None,
     method: str = "get",
     recurse: bool = False,
     ssl_verify: bool = True,
@@ -55,7 +55,7 @@ async def check_url(
     fn: Path,
     glob,
     ext: str,
-    hdr: dict[str, str] = None,
+    hdr: dict[str, str] | None = None,
     *,
     method: str = "get",
     ssl_verify: bool = True,
@@ -73,7 +73,9 @@ async def check_url(
         try:
             # anti-crawling behavior doesn't like .head() method--.get() is slower but avoids lots of false positives
             async with aiohttp.ClientSession(
-                headers=hdr, timeout=timeout, connector=aiohttp.TCPConnector(ssl=ssl_verify)
+                headers=hdr,
+                timeout=timeout,
+                connector=aiohttp.TCPConnector(ssl=ssl_verify),
             ) as session:
                 if method == "get":
                     async with session.get(url, allow_redirects=True) as response:

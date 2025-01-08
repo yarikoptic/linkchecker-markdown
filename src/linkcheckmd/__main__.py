@@ -32,7 +32,9 @@ def main():
     p.add_argument("-v", "--verbose", action="store_true")
     p.add_argument("--sync", help="don't use asyncio", action="store_true")
     p.add_argument("-local", help="only check local files", action="store_true")
-    p.add_argument("-r", "--recurse", help="recurse directories under path", action="store_true")
+    p.add_argument(
+        "-r", "--recurse", help="recurse directories under path", action="store_true"
+    )
     p.add_argument("-noverify", help="don't verify SSL certificates", action="store_true")
     P = p.parse_args()
 
