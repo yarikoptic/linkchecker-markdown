@@ -19,7 +19,9 @@ def test_mod(use_async):
         pytest.importorskip("requests", reason="Synchronous requires requests")
 
     with importlib.resources.path("linkcheckmd.tests", "badlink.md") as file:
-        urls = lc.check_remotes(file, domain="github.invalid", ext=".md", use_async=use_async)
+        urls = lc.check_remotes(
+            file, domain="github.invalid", ext=".md", use_async=use_async
+        )
 
     assert len(urls) == 2
 
@@ -34,7 +36,8 @@ def test_script(use_async, capfd):
 
     with importlib.resources.path("linkcheckmd.tests", "badlink.md") as file:
         ret = subprocess.run(
-            [sys.executable, "-m", "linkcheckmd", str(file), "github.invalid"] + args, text=True
+            [sys.executable, "-m", "linkcheckmd", str(file), "github.invalid"] + args,
+            text=True,
         )
 
     assert ret.returncode == 22

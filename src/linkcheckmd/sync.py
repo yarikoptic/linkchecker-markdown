@@ -12,7 +12,9 @@ from . import files
 TIMEOUT = 10
 RETRYCODES = (400, 404, 405, 503)
 # multiple exceptions must be tuples, not lists in general
-OKE = requests.exceptions.TooManyRedirects  # FIXME: until full browswer like Arsenic implemented
+OKE = (
+    requests.exceptions.TooManyRedirects
+)  # FIXME: until full browswer like Arsenic implemented
 EXC = (requests.exceptions.ReadTimeout, requests.exceptions.ConnectionError)
 
 """
@@ -24,7 +26,7 @@ def check_urls(
     path: Path,
     regex: str,
     ext: str = ".md",
-    hdr: dict[str, str] = None,
+    hdr: dict[str, str] | None = None,
     ssl_verify: bool = False,
     recurse: bool = False,
 ) -> list[tuple[str, str, T.Any]]:
@@ -51,7 +53,12 @@ def check_urls(
 
 
 def check_url(
-    fn: Path, glob, ext: str, sess, hdr: dict[str, str] = None, ssl_verify: bool = False
+    fn: Path,
+    glob,
+    ext: str,
+    sess,
+    hdr: dict[str, str] | None = None,
+    ssl_verify: bool = False,
 ) -> T.Iterable[tuple[str, str, T.Any]]:
 
     urls = glob.findall(fn.read_text(errors="ignore"))
@@ -82,13 +89,18 @@ def check_url(
             logging.info(f"OK: {url:80s}")
 
 
-def retry(url: str, hdr: dict[str, str] = None, ssl_verify: bool = False) -> bool:
+def retry(url: str, hdr: dict[str, str] | None = None, ssl_verify: bool = False) -> bool:
     ok = False
 
     try:
         # anti-crawling behavior doesn't like .head() method--.get() is slower but avoids lots of false positives
         with requests.get(
-            url, allow_redirects=True, timeout=TIMEOUT, verify=ssl_verify, headers=hdr, stream=True
+            url,
+            allow_redirects=True,
+            timeout=TIMEOUT,
+            verify=ssl_verify,
+            headers=hdr,
+            stream=True,
         ) as stream:
             Rb = next(stream.iter_lines(80), None)
             # if Rb is not None and 'html' in Rb.decode('utf8'):

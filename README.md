@@ -3,12 +3,14 @@
 ![Actions Status](https://github.com/scivision/linkchecker-markdown/workflows/ci/badge.svg)
 [![PyPI Download stats](http://pepy.tech/badge/linkcheckmd)](http://pepy.tech/project/linkcheckmd)
 
-Blazing-fast (10000 Markdown files per second) Python asyncio / [aiohttp](https://docs.aiohttp.org/)
+Blazing-fast (10000 Markdown files per second) Python asyncio using the high-level
+[aiohttp](https://docs.aiohttp.org/)
+library.
 based simple check of links in Markdown .md files only.
 This tool is very helpful for large Markdown-based Jekyll and Hugo sites as
 well as Markdown-based
-[MkDocs](https://www.mkdocs.org/) documentation projects.
-It is very fast and simple--it's what we use to check https://www.scivision.dev
+[MkDocs](https://www.mkdocs.org/)
+documentation projects.
 
 ## Install
 
@@ -23,7 +25,7 @@ or for latest development version.
 ```sh
 git clone https://github.com/scivision/linkchecker-markdown
 
-pip install -e linkchecker-markdown
+pip install -e ./linkchecker-markdown
 ```
 
 ## Usage

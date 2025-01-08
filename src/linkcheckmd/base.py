@@ -14,16 +14,16 @@ USER_AGENT = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:64.0) Gecko/20100101 Firefo
 
 def check_links(
     path: Path,
-    domain: str = None,
+    domain: str | None = None,
     *,
-    ext: str,
-    hdr: dict[str, str] = None,
+    ext: str = ".md",
+    hdr: dict[str, str] | None = None,
     method: str = "get",
     use_async: bool = True,
     local: bool = False,
     recurse: bool = False,
     ssl_verify: bool = True,
-) -> T.Iterable[tuple]:
+) -> T.Iterable[tuple] | None:
 
     if local and recurse:
         logging.error("'recurse' currently works only for remote links.")
@@ -87,10 +87,10 @@ def check_local(path: Path, ext: str) -> T.Iterable[tuple[str, str]]:
 
 def check_remotes(
     path: Path,
-    domain: str,
+    domain: str | None,
     *,
-    ext: str,
-    hdr: dict[str, str] = None,
+    ext: str = ".md",
+    hdr: dict[str, str] | None = None,
     method: str = "get",
     use_async: bool = True,
     recurse: bool = False,
@@ -125,6 +125,8 @@ def check_remotes(
     else:
         from .sync import check_urls as sync_urls
 
-        urls = sync_urls(path, regex=pat, ext=ext, hdr=hdr, recurse=recurse, ssl_verify=ssl_verify)
+        urls = sync_urls(
+            path, regex=pat, ext=ext, hdr=hdr, recurse=recurse, ssl_verify=ssl_verify
+        )
 
     return urls
