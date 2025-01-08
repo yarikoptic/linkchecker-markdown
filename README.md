@@ -1,8 +1,7 @@
 # Linkchecker for Markdown-based static generated sites
 
 ![Actions Status](https://github.com/scivision/linkchecker-markdown/workflows/ci/badge.svg)
-[![pypi versions](https://img.shields.io/pypi/pyversions/linkcheckmd.svg)](https://pypi.python.org/pypi/linkcheckmd)
-[![PyPi Download stats](http://pepy.tech/badge/linkcheckmd)](http://pepy.tech/project/linkcheckmd)
+[![PyPI Download stats](http://pepy.tech/badge/linkcheckmd)](http://pepy.tech/project/linkcheckmd)
 
 Blazing-fast (10000 Markdown files per second) Python asyncio / [aiohttp](https://docs.aiohttp.org/)
 based simple check of links in Markdown .md files only.
